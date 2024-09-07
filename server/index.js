@@ -6,9 +6,7 @@ const app = express();
 const port = 3000;
 
 mongoose
-  .connect(
-    `mongodb+srv://saifsep17:${process.env.MONGO_PASSWORD}@cluster0.9uz89.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-  )
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(port, () => {
