@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const facultySchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -17,25 +17,20 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: false,
     },
-    phone: {
+    emp_id: {
       type: String,
       required: true,
       unique: true,
     },
-    RRN: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    queries: [
+    assigned_queries: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Query",
+        ref: "AssignedQuery",
       },
     ],
     role: {
       type: String,
-      default: "user",
+      default: "faculty",
     },
   },
   {
@@ -43,4 +38,4 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-export const User = mongoose.model("User", userSchema);
+export const Faculty = new mongoose.model("Faculty", facultySchema);
