@@ -1,14 +1,13 @@
 import { User } from "../models/user.model.js";
+import { OTP } from "../models/otp.model.js";
 import bcryptjs from "bcryptjs";
-import { mailer } from "../utils/mailer.js";
-import otpGenerator from "otp-generator";
 
 const userSignUpController = async (req, res) => {
   try {
-    const { name, email, password, phone, RRN } = req.body;
+    const { name, email, password, phone, RRN, otp } = req.body;
     const hashedPassword = bcryptjs.hashSync(password, 10);
 
-    if (await User.findOne({ email: email })) {
+    if (await User.findOne({ email: email }, { email: 1 })) {
       res.status(400).json({ message: "User already exists! Please Sign In!" });
       return;
     }
@@ -21,21 +20,21 @@ const userSignUpController = async (req, res) => {
       RRN: RRN,
     });
 
-    const OTP = otpGenerator.generate(4, {
-      upperCaseAlphabets: false,
-      lowerCaseAlphabets: false,
-      specialChars: false,
-    });
+    const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
 
-    mailer(
-      email,
-      "OTP to verify your Campus Echo Sign Up",
-      `Please enter the following OTP to verify your account: ${OTP}`
-    );
+    if (!response) {
+      res.status(400).json({ message: "Invalid Email" });
+      return;
+    }
 
-    await newUser.save();
-    res.status(200).json(newUser);
-    // res.status(201).json({ message: "User created successfully!" });
+    if (otp === response[0].otp) {
+      await newUser.save();
+      res
+        .status(200)
+        .json({ message: "User created successfully", data: newUser });
+    } else {
+      res.status(400).json({ message: "Wrong OTP" });
+    }
   } catch (err) {
     res.status(400).json({ message: err.message });
     console.log(err);
