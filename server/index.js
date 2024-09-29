@@ -1,10 +1,14 @@
 import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
+import cookieparser from "cookie-parser";
+import bodyParser from "body-parser";
 import signUpRoute from "./routes/signup.route.js";
 import signInRoute from "./routes/signin.route.js";
 import getOTPRoute from "./routes/sendOTP.route.js";
 import signOutRoute from "./routes/signout.route.js";
+import createQueryRoute from "./routes/createQuery.route.js";
+import getQueryRoute from "./routes/getQuery.route.js";
 
 const app = express();
 const port = 3000;
@@ -21,8 +25,12 @@ mongoose
   });
 
 app.use(express.json());
+app.use(cookieparser());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", getOTPRoute);
 app.use("/", signOutRoute);
 app.use("/user", signUpRoute);
 app.use("/user", signInRoute);
+app.use("/user", createQueryRoute);
+app.use("/query", getQueryRoute);

@@ -17,9 +17,14 @@ const querySchema = new mongoose.Schema(
       type: String,
       default: "pending",
     },
+    tags: {
+      type: [],
+      required: true,
+    },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     assigned_faculty: {
       type: mongoose.Schema.Types.ObjectId,
