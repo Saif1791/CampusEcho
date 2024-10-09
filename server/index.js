@@ -9,6 +9,7 @@ import getOTPRoute from "./routes/sendOTP.route.js";
 import signOutRoute from "./routes/signout.route.js";
 import createQueryRoute from "./routes/createQuery.route.js";
 import getQueryRoute from "./routes/getQuery.route.js";
+import adminSignInRoute from "./routes/admin.signin.route.js";
 
 const app = express();
 const port = 3000;
@@ -30,7 +31,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", getOTPRoute);
 app.use("/", signOutRoute);
+
 app.use("/user", signUpRoute);
 app.use("/user", signInRoute);
+
 app.use("/user", createQueryRoute);
 app.use("/query", getQueryRoute);
+
+app.use("/", adminSignInRoute);

@@ -27,7 +27,7 @@ export const mailer = async (userEmail, subject, text) => {
     text: text,
   };
 
-  await transporter.sendMail(mailOptions, (err, data) => {
+  transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
       console.log(err);
     } else {

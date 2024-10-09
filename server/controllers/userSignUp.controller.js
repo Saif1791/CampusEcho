@@ -1,5 +1,6 @@
 import { User } from "../models/user.model.js";
 import { OTP } from "../models/otp.model.js";
+import { mailer } from "../utils/mailer.js";
 import bcryptjs from "bcryptjs";
 
 const userSignUpController = async (req, res) => {
@@ -32,6 +33,8 @@ const userSignUpController = async (req, res) => {
       res
         .status(200)
         .json({ message: "User created successfully", data: newUser });
+
+      mailer(email, "Welcome to Campus Echo", `Welcome ${name} to Campus Echo`);
     } else {
       res.status(400).json({ message: "Wrong OTP" });
     }
