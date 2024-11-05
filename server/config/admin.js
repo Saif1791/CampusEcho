@@ -25,3 +25,13 @@ const User = sequelize.define('User', {
         allowNull: false
     }
 });
+
+AdminJS.registerAdapter(AdminJSSequelize);
+const adminJS = new AdminJS({
+    databases: [sequelize],
+    rootPath: '/admin',
+});
+
+const router = AdminJSExpress.buildRouter(adminJS);
+
+module.exports = { adminJS, router };
