@@ -9,8 +9,9 @@ import getOTPRoute from "./routes/sendOTP.route.js";
 import signOutRoute from "./routes/signout.route.js";
 import createQueryRoute from "./routes/createQuery.route.js";
 import getQueryRoute from "./routes/getQuery.route.js";
-import updateQueryRoute from "./routes/updateQuery.route.js"
+import updateQueryRoute from "./routes/updateQuery.route.js";
 import adminSignInRoute from "./routes/admin.signin.route.js";
+import facultySignInRoute from "./routes/faculty.signin.route.js";
 
 const app = express();
 const port = 3000;
@@ -40,5 +41,7 @@ app.use("/user", signInRoute);
 app.use("/user", createQueryRoute);
 app.use("/query", getQueryRoute);
 app.use("/query/update", updateQueryRoute);
+
+app.use("/", facultySignInRoute);
 
 app.use("/", adminSignInRoute);
