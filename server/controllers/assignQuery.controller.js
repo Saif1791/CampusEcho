@@ -1,9 +1,32 @@
+import { Faculty } from "../models/faculty.model.js";
 import { Query } from "../models/query.model.js";
 
-export default assignQuery = (req, res) => {
-  const { id, faculty } = req.body;
+const assignQuery = async (req, res) => {
+  try {
+    const { faculty } = req.body;
+    const id = req.params.id;
 
-  const query = Query.findById({ id: id });
+    const foundFaculty = await Faculty.findById(faculty, {
+      name: 1,
+      emp_id: 1,
+      email: 1,
+      assigned_queries: -1,
+    });
 
-  Query.updateOne({ id: id }, {});
+    const updatedQuery = await Query.findByIdAndUpdate(
+      { _id: id },
+      { $set: { assigned_faculty: foundFaculty } },
+      {
+        new: true,
+      }
+    );
+
+    return res
+      .status(200)
+      .json({ mssg: "Succesfully Updated Query!", updatedQuery });
+  } catch (err) {
+    return res.status(400).json({ mssg: err });
+  }
 };
+
+export default assignQuery;

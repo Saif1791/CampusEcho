@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import { facultySchema } from "./faculty.model.js";
+
 const querySchema = new mongoose.Schema(
   {
     title: {
@@ -27,7 +29,8 @@ const querySchema = new mongoose.Schema(
       required: true,
     },
     assigned_faculty: {
-      type: mongoose.Schema.Types.ObjectId,
+      // type: mongoose.Schema.Types.ObjectId,
+      type: facultySchema,
       ref: "Faculty",
     },
   },

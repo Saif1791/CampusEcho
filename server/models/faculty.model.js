@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const facultySchema = mongoose.Schema(
+export const facultySchema = mongoose.Schema(
   {
     name: {
       type: String,
