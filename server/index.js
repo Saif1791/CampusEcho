@@ -12,6 +12,7 @@ import getQueryRoute from "./routes/getQuery.route.js";
 import updateQueryRoute from "./routes/updateQuery.route.js";
 import adminSignInRoute from "./routes/admin.signin.route.js";
 import facultySignInRoute from "./routes/faculty.signin.route.js";
+import updateQueryStatusRoute from "./routes/updateQueryStatus.js";
 
 const app = express();
 const port = 3000;
@@ -41,6 +42,7 @@ app.use("/user", signInRoute);
 app.use("/user", createQueryRoute);
 app.use("/query", getQueryRoute);
 app.use("/query/update", updateQueryRoute);
+app.use("/query/update", updateQueryStatusRoute);
 
 app.use("/", facultySignInRoute);
 
