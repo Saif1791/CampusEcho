@@ -1,4 +1,5 @@
 import React from 'react';
+import Auth from './button.jsx';
 import {
   Flex,
   Box,
@@ -12,6 +13,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { FiChevronDown } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -36,19 +38,14 @@ const Header = () => {
           Campus Echo
         </Text>
       </Box>
-      <Flex align="center">
-        <Menu>
-          <MenuButton as={Button} rightIcon={<FiChevronDown />}>
-            <Avatar size="sm" name="User Name" src="https://bit.ly/broken-link" />
-          </MenuButton>
-          <MenuList>
-            <MenuItem>Profile</MenuItem>
-            <MenuItem>Settings</MenuItem>
-            <MenuDivider />
-            <MenuItem>Logout</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
+      <div className='flex flex-row gap-3'>
+        <Link to="/signin">
+          <Auth name='Sign In'/>
+        </Link>
+        <Link to="/signup">
+          <Auth name='Sign Up'/>
+        </Link>
+      </div>
     </Flex>
   );
 };
